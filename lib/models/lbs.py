@@ -398,7 +398,8 @@ class JointsFromVerticesSelector(nn.Module):
         if fname is not None:
             fname = os.path.expanduser(os.path.expandvars(fname))
             with open(fname, 'r') as f:
-                data = yaml.load(f)
+                # data = yaml.load(f)
+                data = yaml.load(f, Loader=yaml.FullLoader)
             names = list(data.keys())
             bcs = []
             face_ids = []
