@@ -1,0 +1,176 @@
+2023-03-21 19:58:27.990 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-21 19:58:27.991 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-21 19:58:27.996 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-21 19:58:27.996 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-21 19:58:43.583 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-21 19:58:54.976 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-21 21:48:56.040 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-21 21:48:56.040 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-21 21:48:56.047 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-21 21:48:56.047 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-21 21:48:58.258 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-21 21:49:10.488 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-21 21:49:11.643 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-21 21:49:12.679 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-21 21:51:43.803 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-21 21:51:43.803 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-21 21:51:43.811 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-21 21:51:43.811 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-21 21:51:45.760 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-21 21:51:58.088 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-21 21:51:59.318 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-21 21:52:00.331 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-21 21:57:09.592 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-21 21:57:09.592 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-21 21:57:09.599 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-21 21:57:09.600 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-21 21:57:11.621 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-21 21:57:24.034 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-21 21:57:25.250 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-21 21:57:26.305 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-21 21:58:54.931 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-21 21:58:54.931 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-21 21:58:54.938 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-21 21:58:54.938 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-21 21:58:57.253 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-21 21:59:09.726 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-21 21:59:10.998 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-21 21:59:12.133 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 14:04:59.962 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:04:59.963 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:04:59.970 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:04:59.970 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:05:01.955 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 14:05:14.233 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 14:05:15.421 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 14:05:16.462 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 14:12:27.572 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:12:27.572 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:12:27.580 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:12:27.580 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:12:29.503 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 14:12:41.872 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 14:12:43.014 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 14:12:44.059 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 14:31:46.835 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:31:46.835 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:31:46.842 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:31:46.842 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:31:47.874 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 14:32:27.806 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:32:27.807 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:32:27.814 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:32:27.814 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:32:28.741 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 14:35:23.736 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:35:23.736 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:35:23.743 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:35:23.743 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:35:24.727 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 14:47:03.402 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:47:03.402 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:47:03.409 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:47:03.410 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:48:16.185 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:48:16.185 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:48:16.192 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:48:16.193 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:48:18.156 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 14:48:30.935 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 14:48:32.221 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 14:48:33.200 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 14:51:50.509 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:51:50.510 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:51:50.517 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:51:50.517 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:51:52.543 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 14:52:05.281 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 14:52:06.451 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 14:52:07.481 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 14:53:18.225 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 14:53:18.225 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 14:53:18.232 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 14:53:18.232 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 14:53:20.361 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 14:53:33.307 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 14:53:34.460 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 14:53:35.418 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 15:08:46.044 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 15:08:46.044 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 15:08:46.052 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 15:08:46.052 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 15:08:48.225 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 15:09:00.969 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 15:09:02.104 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 15:09:03.030 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 15:15:49.117 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 15:15:49.117 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 15:15:49.125 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 15:15:49.125 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 15:15:51.236 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 15:16:03.966 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 15:16:05.193 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 15:16:06.195 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 15:17:52.811 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 15:17:52.811 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 15:17:52.818 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 15:17:52.818 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 15:17:54.848 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 15:18:07.739 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 15:18:08.957 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 15:18:10.033 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 15:21:49.328 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 15:21:49.328 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 15:21:49.335 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 15:21:49.335 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 15:29:52.014 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 15:29:52.014 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 15:29:52.021 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 15:29:52.022 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 15:49:06.085 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 15:49:06.085 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 15:49:06.094 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 15:49:06.094 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 15:53:26.327 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 15:53:26.327 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 15:53:26.336 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 15:53:26.336 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 15:53:28.921 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 15:53:40.465 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 16:17:08.052 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 16:17:08.053 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 16:17:08.062 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 16:17:08.062 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 16:17:11.084 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 16:17:22.456 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 16:17:23.682 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 16:17:24.789 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 16:20:22.711 | INFO     | __main__:process_video:246 - processing rgb
+2023-03-22 16:20:22.712 | INFO     | __main__:generate_frame:68 - copy frames from folder: rgb...
+2023-03-22 16:20:22.719 | INFO     | __main__:generate_frame:76 - video frames are stored in ./rgb/frame
+2023-03-22 16:20:22.719 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 16:20:25.656 | INFO     | __main__:generate_image:92 - detect first image ./rgb/frame/rgb_f000000.png
+2023-03-22 16:20:37.109 | INFO     | __main__:generate_image:118 - images are stored in ./rgb/image
+2023-03-22 16:20:38.295 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./rgb/image
+2023-03-22 16:20:39.415 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 16:20:53.191 | INFO     | __main__:process_video:267 - finish rgb
+2023-03-22 16:29:40.442 | INFO     | __main__:process_video:246 - processing sample_video_trimed
+2023-03-22 16:29:40.443 | INFO     | __main__:generate_frame:48 - extract frames from video: sample_video_trimed.mp4..., then save to ./sample_video_trimed/sample_video_trimed.mp4
+2023-03-22 16:29:47.955 | INFO     | __main__:generate_frame:66 - extracted 300 frames
+2023-03-22 16:29:47.955 | INFO     | __main__:generate_frame:76 - video frames are stored in ./sample_video_trimed/frame
+2023-03-22 16:29:47.957 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 16:29:50.794 | INFO     | __main__:generate_image:92 - detect first image ./sample_video_trimed/frame/sample_video_trimed_f000000.png
+2023-03-22 16:31:37.571 | INFO     | __main__:generate_image:118 - images are stored in ./sample_video_trimed/image
+2023-03-22 16:31:52.240 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./sample_video_trimed/image
+2023-03-22 16:32:04.721 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 16:33:39.553 | INFO     | __main__:process_video:267 - finish sample_video_trimed
+2023-03-22 17:49:36.710 | INFO     | __main__:process_video:246 - processing sample_video_trimed
+2023-03-22 17:49:36.710 | INFO     | __main__:generate_frame:48 - extract frames from video: sample_video_trimed.mp4..., then save to ./sample_video_trimed/sample_video_trimed.mp4
+2023-03-22 17:49:44.020 | INFO     | __main__:generate_frame:66 - extracted 300 frames
+2023-03-22 17:49:44.021 | INFO     | __main__:generate_frame:76 - video frames are stored in ./sample_video_trimed/frame
+2023-03-22 17:49:44.023 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 17:49:46.840 | INFO     | __main__:generate_image:92 - detect first image ./sample_video_trimed/frame/sample_video_trimed_f000000.png
+2023-03-22 17:51:32.937 | INFO     | __main__:generate_image:118 - images are stored in ./sample_video_trimed/image
+2023-03-22 17:51:47.249 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./sample_video_trimed/image
+2023-03-22 17:52:00.315 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 17:53:31.874 | INFO     | __main__:process_video:267 - finish sample_video_trimed

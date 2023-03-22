@@ -51,3 +51,7 @@ exps
 wandb
 process_data/assets
 process_data/submodules
+
+process_data/test_data
+process_data/lists
+process_data/logs
