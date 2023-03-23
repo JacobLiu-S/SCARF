@@ -174,3 +174,13 @@
 2023-03-22 17:51:47.249 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for ./sample_video_trimed/image
 2023-03-22 17:52:00.315 | INFO     | __main__:generate_pixie:207 - generate pixie results
 2023-03-22 17:53:31.874 | INFO     | __main__:process_video:267 - finish sample_video_trimed
+2023-03-22 20:46:09.580 | INFO     | __main__:process_video:246 - processing DSC_7157
+2023-03-22 20:46:09.581 | INFO     | __main__:generate_frame:48 - extract frames from video: test_data/DSC_7157.mp4..., then save to test_data/DSC_7157/DSC_7157.mp4
+2023-03-22 20:46:27.093 | INFO     | __main__:generate_frame:66 - extracted 401 frames
+2023-03-22 20:46:27.093 | INFO     | __main__:generate_frame:76 - video frames are stored in test_data/DSC_7157/frame
+2023-03-22 20:46:27.095 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-03-22 20:46:29.858 | INFO     | __main__:generate_image:92 - detect first image test_data/DSC_7157/frame/DSC_7157_f000000.png
+2023-03-22 20:48:48.330 | INFO     | __main__:generate_image:118 - images are stored in test_data/DSC_7157/image
+2023-03-22 20:49:05.575 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for test_data/DSC_7157/image
+2023-03-22 20:49:22.119 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-03-22 20:51:32.422 | INFO     | __main__:process_video:267 - finish DSC_7157
