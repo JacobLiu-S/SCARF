@@ -202,7 +202,23 @@ def generate_cloth_segmentation(inputpath, savepath, ckpt_path='assets/cloth-seg
         output_img.save(os.path.join(savepath, f'{name}.png'))
         pbar.update(1)
     pbar.close()
-    
+
+def replace_smplx_param(npfile, codedict, i):
+    # import IPython; IPython.embed();exit()
+    from pixielib.utils import rotation_converter as converter
+    smplx = npfile['smplx'].item()
+    codedict['body_pose'] = converter.batch_rodrigues(torch.from_numpy(smplx['body_pose'][i]).reshape(-1, 3)).unsqueeze(0).cuda()
+    codedict['global_pose'] = converter.batch_rodrigues(torch.from_numpy(smplx['global_orient'][i]).reshape(-1, 3)).unsqueeze(0).cuda()
+    codedict['jaw_pose'] = converter.batch_rodrigues(torch.from_numpy(smplx['jaw_pose'][i]).reshape(-1, 3)).unsqueeze(0).cuda()
+    codedict['right_hand_pose'] = converter.batch_rodrigues(torch.from_numpy(smplx['right_hand_pose'][i]).reshape(-1, 3)).unsqueeze(0).cuda()
+    codedict['left_hand_pose'] = converter.batch_rodrigues(torch.from_numpy(smplx['left_hand_pose'][i]).reshape(-1, 3)).unsqueeze(0).cuda()
+    codedict['partbody_pose'][:, :11] = codedict['body_pose'][:, :11]
+    codedict['partbody_pose'][:, 11:11+2] = codedict['body_pose'][:, 12:12+2]
+    codedict['partbody_pose'][:, 13:13+4] = codedict['body_pose'][:, -6:-2]
+    codedict['neck_pose'] = codedict['body_pose'][:, 11].unsqueeze(0)
+    codedict['head_pose'] = codedict['body_pose'][:, 14].unsqueeze(0)
+    return codedict
+
 def generate_pixie(inputpath, savepath, ckpt_path='assets/face_normals/model.pth', device='cuda:0', image_size=512, vis=False):
     logger.info(f'generate pixie results')
     os.makedirs(savepath, exist_ok=True)
@@ -214,12 +230,15 @@ def generate_pixie(inputpath, savepath, ckpt_path='assets/face_normals/model.pth
     from pixielib.utils import util
     from pixielib.utils.config import cfg as pixie_cfg
     from pixielib.utils.tensor_cropper import transform_points
+    from pixielib.utils import rotation_converter as converter
     # run pixie
     testdata = TestData(inputpath, iscrop=False)
     pixie_cfg.model.use_tex = False
     pixie = PIXIE(config = pixie_cfg, device=device)
     visualizer = Visualizer(render_size=image_size, config = pixie_cfg, device=device, rasterizer_type='standard')
     testdata = TestData(inputpath, iscrop=False)
+    # npz_path='/nvme/liushuai/SCARF/exps/20230404-SCARF/smplx_inCamSpace.npz'
+    # npfile = np.load(npz_path, allow_pickle=True)
     for i, batch in enumerate(tqdm(testdata, dynamic_ncols=True)):
         batch['image'] = batch['image'].unsqueeze(0)
         batch['image_hd'] = batch['image_hd'].unsqueeze(0)
@@ -231,6 +250,8 @@ def generate_pixie(inputpath, savepath, ckpt_path='assets/face_normals/model.pth
         param_dict = pixie.encode(data, threthold=True, keep_local=True, copy_and_paste=False)
         codedict = param_dict['body']
         opdict = pixie.decode(codedict, param_type='body')
+        # codedict = replace_smplx_param(npfile, codedict, i)
+        # opdict = pixie.decode(codedict, param_type='body')
         util.save_pkl(os.path.join(savepath, f'{name}_param.pkl'), codedict)
         if vis:
             opdict['albedo'] = visualizer.tex_flame2smplx(opdict['albedo'])

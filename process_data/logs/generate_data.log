@@ -184,3 +184,36 @@
 2023-03-22 20:49:05.575 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for test_data/DSC_7157/image
 2023-03-22 20:49:22.119 | INFO     | __main__:generate_pixie:207 - generate pixie results
 2023-03-22 20:51:32.422 | INFO     | __main__:process_video:267 - finish DSC_7157
+2023-04-06 15:33:46.369 | INFO     | __main__:process_video:246 - processing synbody
+2023-04-06 15:33:46.369 | INFO     | __main__:generate_frame:68 - copy frames from folder: /nvme/liushuai/SCARF/process_data/test_data/synbody...
+2023-04-06 15:33:46.410 | INFO     | __main__:generate_frame:76 - video frames are stored in /nvme/liushuai/SCARF/process_data/test_data/synbody/frame
+2023-04-06 15:33:46.410 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-04-06 15:33:49.820 | INFO     | __main__:generate_image:92 - detect first image /nvme/liushuai/SCARF/process_data/test_data/synbody/frame/synbody_f000000.png
+2023-04-06 15:34:38.912 | INFO     | __main__:generate_image:118 - images are stored in /nvme/liushuai/SCARF/process_data/test_data/synbody/image
+2023-04-06 15:34:38.913 | INFO     | __main__:generate_pixie:207 - generate pixie results
+2023-04-06 15:36:36.716 | INFO     | __main__:process_video:267 - finish synbody
+2023-04-06 15:46:16.501 | INFO     | __main__:process_video:252 - processing synbody
+2023-04-06 15:46:16.501 | INFO     | __main__:generate_pixie:210 - generate pixie results
+2023-04-06 15:46:46.822 | INFO     | __main__:process_video:252 - processing synbody
+2023-04-06 15:46:46.822 | INFO     | __main__:generate_pixie:210 - generate pixie results
+2023-04-06 16:01:13.883 | INFO     | __main__:process_video:254 - processing synbody
+2023-04-06 16:01:13.884 | INFO     | __main__:generate_pixie:212 - generate pixie results
+2023-04-06 16:37:14.450 | INFO     | __main__:process_video:262 - processing synbody
+2023-04-06 16:37:14.451 | INFO     | __main__:generate_pixie:218 - generate pixie results
+2023-04-06 16:37:59.374 | INFO     | __main__:process_video:262 - processing synbody
+2023-04-06 16:37:59.374 | INFO     | __main__:generate_pixie:218 - generate pixie results
+2023-04-06 16:40:06.587 | INFO     | __main__:process_video:283 - finish synbody
+2023-04-06 16:48:57.131 | INFO     | __main__:process_video:262 - processing synbody
+2023-04-06 16:48:57.131 | INFO     | __main__:generate_pixie:218 - generate pixie results
+2023-04-06 17:08:54.260 | INFO     | __main__:process_video:267 - processing synbody
+2023-04-06 17:08:54.260 | INFO     | __main__:generate_pixie:223 - generate pixie results
+2023-04-06 17:10:58.301 | INFO     | __main__:process_video:288 - finish synbody
+2023-04-06 17:19:16.863 | INFO     | __main__:process_video:267 - processing synbody
+2023-04-06 17:19:16.863 | INFO     | __main__:generate_frame:68 - copy frames from folder: /nvme/liushuai/SCARF/process_data/test_data/synbody...
+2023-04-06 17:19:16.922 | INFO     | __main__:generate_frame:76 - video frames are stored in /nvme/liushuai/SCARF/process_data/test_data/synbody/frame
+2023-04-06 17:19:16.922 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-04-06 17:19:19.927 | INFO     | __main__:generate_image:92 - detect first image /nvme/liushuai/SCARF/process_data/test_data/synbody/frame/synbody_f000000.png
+2023-04-06 17:20:10.702 | INFO     | __main__:generate_image:118 - images are stored in /nvme/liushuai/SCARF/process_data/test_data/synbody/image
+2023-04-06 17:20:26.439 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for /nvme/liushuai/SCARF/process_data/test_data/synbody/image
+2023-04-06 17:20:42.585 | INFO     | __main__:generate_pixie:223 - generate pixie results
+2023-04-06 17:22:41.192 | INFO     | __main__:process_video:288 - finish synbody
