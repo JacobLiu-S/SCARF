@@ -217,3 +217,17 @@
 2023-04-06 17:20:26.439 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for /nvme/liushuai/SCARF/process_data/test_data/synbody/image
 2023-04-06 17:20:42.585 | INFO     | __main__:generate_pixie:223 - generate pixie results
 2023-04-06 17:22:41.192 | INFO     | __main__:process_video:288 - finish synbody
+2023-04-06 21:17:44.946 | INFO     | __main__:process_video:267 - processing synbody_estimate
+2023-04-06 21:17:44.946 | INFO     | __main__:generate_frame:68 - copy frames from folder: /nvme/liushuai/SCARF/process_data/test_data/synbody_estimate...
+2023-04-06 21:17:45.005 | INFO     | __main__:generate_frame:76 - video frames are stored in /nvme/liushuai/SCARF/process_data/test_data/synbody_estimate/frame
+2023-04-06 21:17:45.005 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-04-06 21:17:48.330 | INFO     | __main__:generate_image:92 - detect first image /nvme/liushuai/SCARF/process_data/test_data/synbody_estimate/frame/synbody_estimate_f000000.png
+2023-04-06 21:20:47.133 | INFO     | __main__:process_video:267 - processing synbody_estimate
+2023-04-06 21:20:47.133 | INFO     | __main__:generate_frame:68 - copy frames from folder: /nvme/liushuai/SCARF/process_data/test_data/synbody_estimate...
+2023-04-06 21:20:47.277 | INFO     | __main__:generate_frame:76 - video frames are stored in /nvme/liushuai/SCARF/process_data/test_data/synbody_estimate/frame
+2023-04-06 21:20:47.277 | INFO     | __main__:generate_image:81 - generae images, crop True, image size 512
+2023-04-06 21:20:50.272 | INFO     | __main__:generate_image:92 - detect first image /nvme/liushuai/SCARF/process_data/test_data/synbody_estimate/frame/synbody_estimate_f000000.png
+2023-04-06 21:21:39.858 | INFO     | __main__:generate_image:118 - images are stored in /nvme/liushuai/SCARF/process_data/test_data/synbody_estimate/image
+2023-04-06 21:21:55.372 | INFO     | __main__:generate_cloth_segmentation:163 - generate cloth segmentation for /nvme/liushuai/SCARF/process_data/test_data/synbody_estimate/image
+2023-04-06 21:22:11.742 | INFO     | __main__:generate_pixie:223 - generate pixie results
+2023-04-06 21:24:13.355 | INFO     | __main__:process_video:288 - finish synbody_estimate
