@@ -38,9 +38,7 @@ def train(subject_name, exp_cfg, args=None):
         yaml.dump(cfg, f, default_flow_style=False)
     # start training
     trainer = Trainer(config=cfg)
-    # print('p0: model configs')
-    # import IPython; IPython.embed()
-    trainer.fit()
+    trainer.evaluate()
 
 if __name__ == '__main__':
     from lib.utils.config import get_cfg_defaults, update_cfg
@@ -57,8 +55,8 @@ if __name__ == '__main__':
     subject_name = data_cfg.split('/')[-1].split('.')[0]
     
     ### ------------- start training 
-    exp_cfg = 'configs/exp/stage_0_nerf.yml'        
-    train(subject_name, exp_cfg, args)
+    # exp_cfg = 'configs/exp/stage_0_nerf.yml'        
+    # train(subject_name, exp_cfg, args)
     exp_cfg = 'configs/exp/stage_1_hybrid.yml'      
     train(subject_name, exp_cfg, args)
 

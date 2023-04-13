@@ -328,6 +328,8 @@ class Trainer(torch.nn.Module):
             else:
                 val_iter = iter(self.train_dataloader)
                 batch = next(val_iter)
+            # print('p2: validat_step, see batch')
+            # import IPython; IPython.embed()
             util.move_dict_to_device(batch, self.device)
             if data == 'train':
                 batch = self.posemodel(batch)
@@ -371,11 +373,48 @@ class Trainer(torch.nn.Module):
         images = wandb.Image(grid_image[:,:,[2,1,0]], caption="validation")
         wandb.log({data: images}, step=self.global_step)
         logger.info(f'---- validation {data} step: {self.global_step}, save to {savepath}')
+    
+    @torch.no_grad()
+    def evaluate(self):
+        self.prepare_data()
+        self.model.eval()
+        psnr_list = []
+        ssim_list = []
+        # import IPython; IPython.embed(); exit()
+        for _ in range(len(self.val_dataloader)):
+            val_iter = iter(self.val_dataloader)
+            batch = next(val_iter)
+            util.move_dict_to_device(batch, self.device)
+
+            batch['global_step'] = self.global_step
+            opdict = self.model(batch, train=False)
+            visdict = {}
+            datadict = {**batch, **opdict}
+
+            for key in datadict.keys():
+                if not (self.cfg.use_mesh and self.cfg.use_nerf):
+                    if 'cloth' in key or 'skin' in key:
+                        continue
+                if 'path' in key or 'depth' in key or 'vis' in key or 'sampled' in key:
+                    continue
+                if 'image' in key:
+                    visdict[key] = datadict[key]
+                if 'mask' in key:
+                    visdict[key] = datadict[key].expand(-1, 3, -1, -1)        
+            visdict['shape_image'] = self.model.forward_mesh(batch, renderShape=True, background=batch['image'])['shape_image']
+            savepath = os.path.join(self.cfg.output_dir, self.cfg.train.val_vis_dir, f'{self.global_step:06}.jpg')
+            psnr, ssim = util.visualize_grid(visdict, savepath, return_gird=True, size=self.image_size, report_metric=True)
+            psnr_list.append(psnr)
+            ssim_list.append(ssim)
+        print(f'PSNR is {sum(psnr_list)/len(psnr_list)}, SSIM is {sum(ssim_list)/len(ssim_list)}')
+
 
     def fit(self):
         self.prepare_data()
         iters_every_epoch = int(len(self.train_dataset)/self.batch_size)
         start_epoch = self.global_step//iters_every_epoch
+        # print('p1: to see global step count')
+        # import IPython; IPython.embed()
         for epoch in range(start_epoch, self.cfg.train.max_epochs):
             for step in tqdm(range(iters_every_epoch), desc=f"Epoch[{epoch+1}/{self.cfg.train.max_epochs}]"):
                 if epoch*iters_every_epoch + step < self.global_step:
