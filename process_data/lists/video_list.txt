@@ -1,1 +1,1 @@
-/nvme/liushuai/SCARF/process_data/test_data/synbody_estimate
+/nvme/liushuai/SCARF/process_data/test_data/synbody/img

@@ -75,7 +75,7 @@ def generate_frame(inputpath, savepath, subject_name=None, n_frames=2000, fps=30
         logger.info(f'please check the input path: {inputpath}')
     logger.info(f'video frames are stored in {savepath}')
 
-def generate_image(inputpath, savepath, subject_name=None, crop=False, crop_each=False, image_size=512, scale_bbox=1.1, device='cuda:0'):
+def generate_image(inputpath, savepath, subject_name=None, crop=False, crop_each=False, image_size=512, scale_bbox=1.0, device='cuda:0'):
     ''' generate image from given frame path. 
     '''
     logger.info(f'generae images, crop {crop}, image size {image_size}')
@@ -96,6 +96,7 @@ def generate_image(inputpath, savepath, subject_name=None, crop=False, crop_each
 
             image_tensor = torch.tensor(image.transpose(2,0,1), dtype=torch.float32)[None, ...]
             bbox = detector.run(image_tensor)
+            # bbox = [ 202.0987,    14.214666,  776.58325,  1004.7998  ]
             left = bbox[0]; right = bbox[2]; top = bbox[1]; bottom = bbox[3]
             np.savetxt(os.path.join(Path(inputpath).parent, 'image_bbox.txt'), bbox)
             
@@ -215,11 +216,19 @@ def replace_smplx_param(npfile, codedict, i):
     codedict['partbody_pose'][:, :11] = codedict['body_pose'][:, :11]
     codedict['partbody_pose'][:, 11:11+2] = codedict['body_pose'][:, 12:12+2]
     codedict['partbody_pose'][:, 13:13+4] = codedict['body_pose'][:, -6:-2]
+    codedict['left_wrist_pose'] = codedict['body_pose'][:, -2].unsqueeze(0)
+    codedict['right_wrist_pose'] = codedict['body_pose'][:, -1].unsqueeze(0)
     codedict['neck_pose'] = codedict['body_pose'][:, 11].unsqueeze(0)
     codedict['head_pose'] = codedict['body_pose'][:, 14].unsqueeze(0)
+    # codedict['transl'] = torch.from_numpy(npfile['smplx'].item()['transl'][i]).unsqueeze(0).cuda()
+    # import IPython; IPython.embed();exit()
+    # codedict['shape'] = torch.zeros_like(codedict['shape'])
+    # codedict['shape'][:, :10] = torch.from_numpy(smplx['betas'][i])
+    # codedict['exp'] = torch.zeros_like(codedict['exp'])
+    # codedict['exp'][:, :10] = torch.from_numpy(smplx['expression'][i])
     return codedict
 
-def generate_pixie(inputpath, savepath, ckpt_path='assets/face_normals/model.pth', device='cuda:0', image_size=512, vis=False):
+def generate_pixie(inputpath, savepath, ckpt_path='assets/face_normals/model.pth', device='cuda:0', image_size=1024, vis=False):
     logger.info(f'generate pixie results')
     os.makedirs(savepath, exist_ok=True)
     # load model
@@ -237,8 +246,8 @@ def generate_pixie(inputpath, savepath, ckpt_path='assets/face_normals/model.pth
     pixie = PIXIE(config = pixie_cfg, device=device)
     visualizer = Visualizer(render_size=image_size, config = pixie_cfg, device=device, rasterizer_type='standard')
     testdata = TestData(inputpath, iscrop=False)
-    # npz_path='/nvme/liushuai/SCARF/exps/20230404-SCARF/smplx_inCamSpace.npz'
-    # npfile = np.load(npz_path, allow_pickle=True)
+    npz_path='/nvme/liushuai/SCARF/exps/20230404-SCARF/smplx_inCamSpace.npz'
+    npfile = np.load(npz_path, allow_pickle=True)
     for i, batch in enumerate(tqdm(testdata, dynamic_ncols=True)):
         batch['image'] = batch['image'].unsqueeze(0)
         batch['image_hd'] = batch['image_hd'].unsqueeze(0)
@@ -250,8 +259,9 @@ def generate_pixie(inputpath, savepath, ckpt_path='assets/face_normals/model.pth
         param_dict = pixie.encode(data, threthold=True, keep_local=True, copy_and_paste=False)
         codedict = param_dict['body']
         opdict = pixie.decode(codedict, param_type='body')
-        # codedict = replace_smplx_param(npfile, codedict, i)
-        # opdict = pixie.decode(codedict, param_type='body')
+        codedict = replace_smplx_param(npfile, codedict, i)
+        # import IPython; IPython.embed();exit()
+        opdict = pixie.decode(codedict, param_type='body', second=True)
         util.save_pkl(os.path.join(savepath, f'{name}_param.pkl'), codedict)
         if vis:
             opdict['albedo'] = visualizer.tex_flame2smplx(opdict['albedo'])
@@ -265,22 +275,22 @@ def process_video(subjectpath, savepath=None, vis=False, crop=False, crop_each=F
     savepath = os.path.join(savepath, subject_name)
     os.makedirs(savepath, exist_ok=True)
     logger.info(f'processing {subject_name}')
-    # 0. copy frames from video or image folder
-    if ignore_existing or not os.path.exists(os.path.join(savepath, 'frame')):
-        generate_frame(subjectpath, os.path.join(savepath, 'frame'), n_frames=n_frames)
+    # # 0. copy frames from video or image folder
+    # if ignore_existing or not os.path.exists(os.path.join(savepath, 'frame')):
+    #     generate_frame(subjectpath, os.path.join(savepath, 'frame'), n_frames=n_frames)
         
     # 1. crop image from frames, use fasterrcnn for detection 
-    if ignore_existing or not os.path.exists(os.path.join(savepath, 'image')):
-        generate_image(os.path.join(savepath, 'frame'), os.path.join(savepath, 'image'), subject_name=subject_name,
-                        crop=crop, crop_each=crop_each, image_size=512, scale_bbox=1.1, device='cuda:0')
+    # if ignore_existing or not os.path.exists(os.path.join(savepath, 'image')):
+    #     generate_image(os.path.join(savepath, 'frame'), os.path.join(savepath, 'image'), subject_name=subject_name,
+    #                     crop=crop, crop_each=crop_each, image_size=1024, scale_bbox=1.1, device='cuda:0')
     
     # 2. video matting
-    if ignore_existing or not os.path.exists(os.path.join(savepath, 'matting')):
-        generate_matting_rvm(os.path.join(savepath, 'image'), os.path.join(savepath, 'matting'))
+    # if ignore_existing or not os.path.exists(os.path.join(savepath, 'matting')):
+    #     generate_matting_rvm(os.path.join(savepath, 'image'), os.path.join(savepath, 'matting'))
         
     # 3. cloth segmentation
-    if ignore_existing or not os.path.exists(os.path.join(savepath, 'cloth_segmentation')):
-        generate_cloth_segmentation(os.path.join(savepath, 'image'), os.path.join(savepath, 'cloth_segmentation'), vis=vis)
+    # if ignore_existing or not os.path.exists(os.path.join(savepath, 'cloth_segmentation')):
+    #     generate_cloth_segmentation(os.path.join(savepath, 'image'), os.path.join(savepath, 'cloth_segmentation'), vis=vis)
     
     # 4. smplx estimation using PIXIE (https://github.com/yfeng95/PIXIE)
     if ignore_existing or not os.path.exists(os.path.join(savepath, 'pixie')):
@@ -313,7 +323,7 @@ if __name__ == "__main__":
                         help='path to save processed data, if not specified, then save to the same folder as the subject data')
     parser.add_argument('--subject_idx', default=None, type=int,
                         help='specify subject idx, if None (default), then use all the subject data in the list') 
-    parser.add_argument("--image_size", default=512, type=int,
+    parser.add_argument("--image_size", default=1024, type=int,
                         help = 'image size')
     parser.add_argument("--crop", default=True, action="store_true",
                         help='whether to crop image according to the subject detection bbox')
