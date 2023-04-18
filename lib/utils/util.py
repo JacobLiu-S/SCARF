@@ -732,7 +732,12 @@ def visualize_grid(visdict, savepath=None, size=224, dim=2, return_gird=True, pr
         # import IPython; IPython.embed(); exit()
         psnr_value = psnr(visdict['nerf_image'], visdict['image'])
         ssim_value = ssim(visdict['nerf_image'], visdict['image'])
-        return psnr_value, ssim_value
+        import lpips
+        loss_fn_alex = lpips.LPIPS(net='alex').cuda()
+        loss_fn_vgg = lpips.LPIPS(net='vgg').cuda()
+
+        d = loss_fn_alex(visdict['nerf_image'], visdict['image'])
+        return psnr_value, ssim_value, d
         # print(f'PSNR is {psnr_value}, SSIM is {ssim_value})
     grid_image = np.concatenate(list(grids.values()), axis=dim-1)
     if savepath:

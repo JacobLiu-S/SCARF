@@ -380,6 +380,7 @@ class Trainer(torch.nn.Module):
         self.model.eval()
         psnr_list = []
         ssim_list = []
+        lipis_list = []
         # import IPython; IPython.embed(); exit()
         for _ in range(len(self.val_dataloader)):
             val_iter = iter(self.val_dataloader)
@@ -403,10 +404,12 @@ class Trainer(torch.nn.Module):
                     visdict[key] = datadict[key].expand(-1, 3, -1, -1)        
             visdict['shape_image'] = self.model.forward_mesh(batch, renderShape=True, background=batch['image'])['shape_image']
             savepath = os.path.join(self.cfg.output_dir, self.cfg.train.val_vis_dir, f'{self.global_step:06}.jpg')
-            psnr, ssim = util.visualize_grid(visdict, savepath, return_gird=True, size=self.image_size, report_metric=True)
+            psnr, ssim, d = util.visualize_grid(visdict, savepath, return_gird=True, size=self.image_size, report_metric=True)
             psnr_list.append(psnr)
             ssim_list.append(ssim)
-        print(f'PSNR is {sum(psnr_list)/len(psnr_list)}, SSIM is {sum(ssim_list)/len(ssim_list)}')
+            lipis_list.append(d)
+        # import IPython; IPython.embed(); exit()
+        print(f'PSNR is {sum(psnr_list)/len(psnr_list)}, SSIM is {sum(ssim_list)/len(ssim_list)}, LIPIS is {sum(lipis_list).sum().item()/len(sum(lipis_list))/len(lipis_list)}')
 
 
     def fit(self):
