@@ -696,7 +696,7 @@ def save_params(param_path, params, ind=0):
         pickle.dump(out_data, f, protocol=2)
 
 
-def visualize_grid(visdict, savepath=None, size=224, dim=2, return_gird=True, print_key=True, vis_keys=None, report_metric=False):
+def visualize_grid(visdict, savepath=None, size=224, dim=2, return_gird=True, print_key=True, vis_keys=None, report_metric=False, pic='w'):
     '''
     image range should be [0,1]
     dim: 2 for horizontal. 1 for vertical
@@ -726,18 +726,29 @@ def visualize_grid(visdict, savepath=None, size=224, dim=2, return_gird=True, pr
         grids[key] = grid_image
     # print('p3: inside visualize grid')
     # import IPython; IPython.embed()
-    if report_metric:
-        from .metric import psnr, ssim
-        print('calcuate metrics')
-        # import IPython; IPython.embed(); exit()
-        psnr_value = psnr(visdict['nerf_image'], visdict['image'])
-        ssim_value = ssim(visdict['nerf_image'], visdict['image'])
-        import lpips
-        loss_fn_alex = lpips.LPIPS(net='alex').cuda()
-        loss_fn_vgg = lpips.LPIPS(net='vgg').cuda()
+    # if report_metric:
+    #     return visdict, nerf_img
 
-        d = loss_fn_alex(visdict['nerf_image'], visdict['image'])
-        return psnr_value, ssim_value, d
+
+    #     # from .metric import psnr, ssim
+    #     print('calcuate metrics')
+    #     from skimage.metrics import structural_similarity as ssim
+    #     import lpips
+    #     loss_fn_alex = lpips.LPIPS(net='alex').cuda()
+    #     loss_fn_vgg = lpips.LPIPS(net='vgg').cuda()
+    #     if pic = 'uh':
+    #         psnr_value = psnr(visdict['nerf_image'][:, :, :256, :], visdict['image'][:, :, :256, :])
+    #         ssim_value = ssim(visdict['nerf_image'][:, :, :256, :], visdict['image'][:, :, :256, :])
+    #         d = loss_fn_alex(visdict['nerf_image'][:, :, :256, :], visdict['image'][:, :, :256, :])
+    #     elif pic = 'df':
+    #         psnr_value = psnr(visdict['nerf_image'][:, :, 256:, :], visdict['image'][:, :, :256, :])
+    #         ssim_value = ssim(visdict['nerf_image'][:, :, 256:, :], visdict['image'][:, :, :256, :])
+    #         d = loss_fn_alex(visdict['nerf_image'][:, :, 256:, :], visdict['image'][:, :, :256, :])
+    #     elif pic == 'w':
+    #         psnr_value = psnr(visdict['nerf_image'], visdict['image'])
+    #         ssim_value = ssim(visdict['nerf_image'], visdict['image'])
+    #         d = loss_fn_alex(visdict['nerf_image'], visdict['image'])
+        # return psnr_value, ssim_value, d
         # print(f'PSNR is {psnr_value}, SSIM is {ssim_value})
     grid_image = np.concatenate(list(grids.values()), axis=dim-1)
     if savepath:

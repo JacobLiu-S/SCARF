@@ -16,6 +16,7 @@ def train(subject_name, exp_cfg, args=None):
     cfg.clean = args.clean
     cfg.output_dir = os.path.join(args.exp_dir, data_type, subject_name)
     cfg.wandb_name = args.wandb_name
+    cfg.pic = args.pic
     
     if 'nerf' in exp_cfg:
         cfg.exp_name = f'{subject_name}_nerf'
@@ -45,6 +46,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--wandb_name', type=str, default = 'SCARF', help='project name')
     parser.add_argument('--exp_dir', type=str, default = './exps', help='exp dir')
+    parser.add_argument('--pic', type=str, default = 'w', help='evaluate whole, uphalf or downhalf body')
     parser.add_argument('--data_cfg', type=str, default = 'configs/data/mpiis/DSC_7157.yml', help='data cfg file path')
     parser.add_argument('--clean', action="store_true", help='delete output dir if exists')    
     args = parser.parse_args()

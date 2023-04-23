@@ -376,13 +376,14 @@ class Trainer(torch.nn.Module):
     
     @torch.no_grad()
     def evaluate(self):
+        import numpy as np
         self.prepare_data()
         self.model.eval()
-        psnr_list = []
-        ssim_list = []
-        lipis_list = []
+        img_list = []
+        nerf_list = []
         # import IPython; IPython.embed(); exit()
-        for _ in range(len(self.val_dataloader)):
+
+        for s in range(len(self.val_dataloader)):
             val_iter = iter(self.val_dataloader)
             batch = next(val_iter)
             util.move_dict_to_device(batch, self.device)
@@ -404,13 +405,39 @@ class Trainer(torch.nn.Module):
                     visdict[key] = datadict[key].expand(-1, 3, -1, -1)        
             visdict['shape_image'] = self.model.forward_mesh(batch, renderShape=True, background=batch['image'])['shape_image']
             savepath = os.path.join(self.cfg.output_dir, self.cfg.train.val_vis_dir, f'{self.global_step:06}.jpg')
-            psnr, ssim, d = util.visualize_grid(visdict, savepath, return_gird=True, size=self.image_size, report_metric=True)
-            psnr_list.append(psnr)
-            ssim_list.append(ssim)
-            lipis_list.append(d)
-        # import IPython; IPython.embed(); exit()
-        print(f'PSNR is {sum(psnr_list)/len(psnr_list)}, SSIM is {sum(ssim_list)/len(ssim_list)}, LIPIS is {sum(lipis_list).sum().item()/len(sum(lipis_list))/len(lipis_list)}')
-
+            # ori_img, nerf_img = util.visualize_grid(visdict, savepath, return_gird=True, size=self.image_size, report_metric=True)
+            grid_image = util.visualize_grid(visdict, savepath, return_gird=True, size=self.image_size)
+            print(f'Validation images are save to {savepath}')
+            images = wandb.Image(grid_image[:,:,[2,1,0]], caption=f"validation_{s}")
+            wandb.log({'validation': images})
+            img_list.append(visdict['image'])
+            nerf_list.append(visdict['nerf_image'])
+        
+        # import IPython; IPython.embed();exit()
+        ori_images = torch.vstack(img_list)
+        nerf_images = torch.vstack(nerf_list)
+        from lib.utils.metric import PSNR, SSIM, LPIPS
+        if self.cfg.pic == 'uh':
+            psnr_value = PSNR()(nerf_images[:, :, :256, :], ori_images[:, :, :256, :])
+            ssim_value = SSIM()(nerf_images[:, :, :256, :], ori_images[:, :, :256, :])
+            d = LPIPS()(nerf_images[:, :, :256, :], ori_images[:, :, :256, :])
+        elif self.cfg.pic == 'df':
+            psnr_value = PSNR()(visdict['nerf_image'][:, :, 256:, :], visdict['image'][:, :, 256:, :])
+            ssim_value = SSIM()(visdict['nerf_image'][:, :, 256:, :], visdict['image'][:, :, 256:, :])
+            d = LPIPS()(visdict['nerf_image'][:, :, 256:, :], visdict['image'][:, :, 256:, :])
+        elif self.cfg.pic == 'w':
+            psnr_value = PSNR()(nerf_images, ori_images)
+            ssim_value = SSIM()(nerf_images, ori_images)
+            d = LPIPS()(nerf_images, ori_images)
+        errors = {}
+        errors['image'] = ori_images
+        errors['nerf_image'] = nerf_images
+        errors['psnr'] = psnr_value.item()
+        errors['ssim'] = ssim_value.item()
+        errors['lpips'] = d.item()
+        print(errors)
+        # dataname = self.cfg.dataset.subjects[0]
+        # torch.save(errors, f'errors_{dataname}.pt')
 
     def fit(self):
         self.prepare_data()

@@ -56,3 +56,5 @@ process_data/test_data
 process_data/lists
 process_data/logs
 debug
+*.pt
+*.jpg
