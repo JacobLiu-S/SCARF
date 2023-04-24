@@ -3,14 +3,14 @@ dataset:
     num_workers: 1
     white_bg: False
     type: 'scarf'
-    path: 'exps/mpiis/DSC_7157'
+    path: 'exps/mpiis'
     subjects: ['DSC_7157']
     train:
-      frame_start: 0
-      frame_end: 400
+      frame_start: 50
+      frame_end: 150
       frame_step: 2
     val:
-      frame_start: 1
-      frame_end: 400
+      frame_start: 50
+      frame_end: 150
       frame_step: 60
     
