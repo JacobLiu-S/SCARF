@@ -1,4 +1,4 @@
-name: scarf
+name: scarf_train
 channels:
   - defaults
 dependencies:

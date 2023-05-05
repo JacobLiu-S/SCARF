@@ -375,6 +375,112 @@ class Trainer(torch.nn.Module):
         logger.info(f'---- validation {data} step: {self.global_step}, save to {savepath}')
     
     @torch.no_grad()
+    def extract_mesh(self, savefolder, frame_id=0):
+        from lib.visualizer import create_grid, mcubes_to_world
+        from lib.utils.rasterize_rendering import render_shape
+        logger.info(f'extracting mesh from frame {frame_id}')
+        # load data
+        self.cfg.dataset.train.frame_start= frame_id
+        self.cfg.dataset.train.frame_step = 1
+        self.cfg.dataset.train.frame_end = frame_id + 1
+        self.train_dataset = build_datasets.build_train(self.cfg.dataset, mode='train')
+        self.train_dataloader = DataLoader(self.train_dataset, batch_size=1, shuffle=False,
+                            num_workers=0,
+                            pin_memory=True,
+                            drop_last=False)
+        
+        for batch_nb, batch in enumerate(tqdm(self.train_dataloader)):
+            util.move_dict_to_device(batch, device=self.device)
+            frame_id = batch['frame_id'][0]
+            visdict = {'image': batch['image']}
+            
+            # extract mesh
+            N_grid = 256
+            sigma_threshold = 50.
+            if self.cfg.use_nerf:
+                ## points from rays, rays, xyz_fine, viewdir, z_vals
+                x_range = [-1, 1]
+                y_range = [-1, 1]
+                z_range = [self.model.near, self.model.far]
+                grid = create_grid(N_grid, x_range, y_range, z_range)
+                print(f'grid shape: {grid.shape}')
+                xyz = torch.from_numpy(grid.reshape(-1, 3)).unsqueeze(0).float().to(self.device) # (1, N*N*N, 3)
+
+                sigmas = []
+                chunk = 32*32*4*2
+                mesh_out = self.model.forward_mesh(batch, returnVerts=True)
+                batch.update(mesh_out)
+                # import IPython; IPython.embed()
+                for i in tqdm(range(0, xyz.shape[1], chunk)):
+                    xyz_chunk = xyz[:, i:i+chunk, :]
+                    dir_chunk = torch.zeros_like(xyz_chunk)
+                    ## backward skinning
+                    xyz_chunk, dir_chunk, _ = self.model.backward_skinning(batch, xyz_chunk, dir_chunk)
+                    ## query canonical model
+                    _, sigma_chunk = self.model.query_canonical_space(xyz_chunk, dir_chunk, use_fine=True)
+                    sigmas.append(torch.relu(sigma_chunk))
+                sigmas = torch.cat(sigmas, 1)
+                # print('sigmas')
+                # import IPython; IPython.embed()
+                import numpy as np
+                import mcubes
+                sigmas = sigmas.cpu().numpy()
+                sigmas = np.maximum(sigmas, 0).reshape(N_grid, N_grid, N_grid)
+                sigmas = sigmas - sigma_threshold
+                # smooth
+                sigmas = mcubes.smooth(sigmas)
+                # sigmas = mcubes.smooth(sigmas)
+                # print('before marching cubes')
+                # import IPython; IPython.embed()
+                vertices, faces = mcubes.marching_cubes(-sigmas, 0.)
+                vertices = mcubes_to_world(vertices, N_grid, x_range, y_range, z_range)
+                cloth_verts = vertices
+                cloth_faces = faces
+                
+            ### add body shape
+            # if self.cfg.use_mesh:
+            if False:
+                mesh_out = self.model.forward_mesh(batch, renderShape=True)
+                body_verts = mesh_out['trans_verts'].cpu().numpy().squeeze()
+                body_faces = self.model.faces.cpu().numpy().squeeze()
+                if self.cfg.use_nerf:
+                    # combine two mesh
+                    faces = np.concatenate([faces, body_faces+vertices.shape[0]]).astype(np.int32)
+                    vertices = np.concatenate([vertices, body_verts], axis=0).astype(np.float32)
+                else:
+                    faces = body_faces
+                    vertices = body_verts
+                    
+            ### visualize
+            batch_size = 1
+            faces = torch.from_numpy(faces.astype(np.int32)).long().to(self.device)[None,...]
+            vertices = torch.from_numpy(vertices).float().to(self.device)[None,...]
+            # if self.cfg.use_mesh and self.cfg.use_nerf:
+            if False:
+                colors = torch.ones_like(vertices)*180/255.
+                colors[:,:cloth_verts.shape[0], [0,2]] = 180/255.
+                colors[:,:cloth_verts.shape[0], 1] = 220/255.
+            else:
+                colors = None
+            # import ipdb; ipdb.set_trace()
+            shape_image = render_shape(vertices = vertices, faces = faces, 
+                                    image_size=512, blur_radius=1e-8,
+                                    colors=colors)
+                                    # background=batch['image'])
+            visdict['shape_image'] = shape_image
+                
+            savepath = os.path.join(savefolder, f'{self.cfg.exp_name}_f{frame_id}_vis.jpg')
+            grid_image = util.visualize_grid(visdict, savepath, return_gird=True, size=512, print_key=False)
+            # save obj
+            util.write_obj(os.path.join(savefolder, f'{self.cfg.exp_name}_f{frame_id}.obj'), 
+                           vertices[0].cpu().numpy(), 
+                           faces[0].cpu().numpy()[:,[0,2,1]],
+                           colors=None)
+        logger.info(f'Visualize results saved to {savefolder}')
+        exit()
+
+
+    @torch.no_grad()
     def evaluate(self):
         import numpy as np
         self.prepare_data()
@@ -382,6 +488,7 @@ class Trainer(torch.nn.Module):
         img_list = []
         nerf_list = []
         # import IPython; IPython.embed(); exit()
+        self.extract_mesh('exps/test')
 
         for s in range(len(self.val_dataloader)):
             val_iter = iter(self.val_dataloader)

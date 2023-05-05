@@ -58,3 +58,8 @@ process_data/logs
 debug
 *.pt
 *.jpg
+ifnet
+ifnets
+*.ply
+*.ckpt
+*.mtl
